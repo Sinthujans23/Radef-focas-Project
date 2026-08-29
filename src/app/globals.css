@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdfaf6;
+  --foreground: #4a1212;
+}
+
+body.dark-temple {
+  --background: #1a0505;
+  --foreground: #f4e8c8;
+}
+
+body.dark-temple .bg-white, 
+body.dark-temple .bg-cream-50, 
+body.dark-temple .bg-cream-100 {
+  background-color: #2e0b0b !important;
+  color: #f4e8c8 !important;
+  border-color: #641a1a !important;
+}
+
+body.dark-temple .text-maroon-950,
+body.dark-temple .text-maroon-900,
+body.dark-temple .text-maroon-800 {
+  color: #fce7cc !important;
+}
+
+body.dark-temple .border-gold-300,
+body.dark-temple .border-gold-200,
+body.dark-temple .border-gold-400 {
+  border-color: #7d2323 !important;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-playfair);
+  --font-tamil: var(--font-tamil);
+
+  --color-maroon-950: #2e0b0b;
+  --color-maroon-900: #4a1212;
+  --color-maroon-800: #641a1a;
+  --color-maroon-700: #7d2323;
+  --color-maroon-600: #952c2c;
+  --color-maroon-100: #f3ded9;
+  --color-maroon-50: #faf0ec;
+
+  --color-saffron-700: #b8560c;
+  --color-saffron-600: #d9700f;
+  --color-saffron-500: #ec8b1f;
+  --color-saffron-100: #fce7cc;
+  --color-saffron-50: #fdf3e4;
+
+  --color-gold-600: #a9812b;
+  --color-gold-500: #c9a13b;
+  --color-gold-400: #d9b95c;
+  --color-gold-300: #e6cd85;
+  --color-gold-100: #f4e8c8;
+
+  --color-cream-100: #f7ecd9;
+  --color-cream-50: #fbf3e6;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading), Georgia, serif;
+}
+
+.font-tamil {
+  font-family: var(--font-tamil), sans-serif;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: var(--color-saffron-500);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream-50);
+  border-left: 1px solid var(--color-gold-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-maroon-800);
+  border: 3px solid var(--color-cream-50);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-maroon-700);
+}
+
+/* Festival Mode Animation */
+@keyframes goldGlow {
+  0% { box-shadow: inset 0 0 50px rgba(217, 112, 15, 0); }
+  50% { box-shadow: inset 0 0 100px rgba(217, 112, 15, 0.2); }
+  100% { box-shadow: inset 0 0 50px rgba(217, 112, 15, 0); }
+}
+
+.festival-mode::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, rgba(217, 112, 15, 0.05), transparent 70%);
+  animation: goldGlow 4s infinite ease-in-out;
+  z-index: 50;
+}
