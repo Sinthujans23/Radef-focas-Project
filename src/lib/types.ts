@@ -38,6 +38,5 @@ export type MemberDTO = {
   name: string;
   role: string;
   address: string;
-  imageUrl: string;
   createdAt: string;
 };

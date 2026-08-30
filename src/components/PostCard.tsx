@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { OrganizationDTO, PostDTO } from "@/lib/types";
 import { getViewerId, getViewerName, setViewerName } from "@/lib/viewer";
-import { playChime } from "@/lib/audio";
 import Avatar from "./Avatar";
 import Lightbox from "./Lightbox";
 import ReactMarkdown from "react-markdown";
@@ -40,8 +39,6 @@ export default function PostCard({ post, org }: { post: PostDTO; org: Organizati
   const liked = likes.includes(viewerId);
 
   async function toggleLike() {
-    if (!liked) playChime();
-    
     const res = await fetch(`/api/posts/${post._id}/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

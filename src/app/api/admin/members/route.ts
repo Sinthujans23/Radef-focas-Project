@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { verifyAdminToken, ADMIN_COOKIE_NAME } from "@/lib/auth";
 import { cookies } from "next/headers";
 
@@ -11,15 +11,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { name, role, address, imageUrl } = await req.json();
+    const { name, role, address } = await req.json();
 
     if (!name) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("members")
-      .insert([{ name, role, address, image_url: imageUrl }])
+      .insert([{ name, role, address }])
       .select()
       .single();
 

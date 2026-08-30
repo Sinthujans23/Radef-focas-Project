@@ -14,7 +14,6 @@ export default async function MembersPage() {
     name: m.name,
     role: m.role || "",
     address: m.address || "",
-    imageUrl: m.image_url || "",
     createdAt: m.created_at,
   }));
 
@@ -37,18 +36,7 @@ export default async function MembersPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {members.map((member) => (
-            <div key={member._id} className="rounded-2xl border-2 border-gold-300 bg-white shadow-xl flex flex-col items-center p-6 text-center transition hover:shadow-2xl hover:shadow-gold-500/20 hover:-translate-y-1 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-saffron-600 via-gold-500 to-saffron-600" />
-              <div className="h-24 w-24 rounded-full border-4 border-gold-300 bg-cream-50 flex items-center justify-center mb-4 overflow-hidden shadow-inner">
-                {member.imageUrl ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img src={member.imageUrl} alt={member.name} className="h-full w-full object-cover" />
-                ) : (
-                  <span className="text-3xl text-saffron-600 font-bold">
-                    {member.name.charAt(0).toUpperCase()}
-                  </span>
-                )}
-              </div>
+            <div key={member._id} className="group relative flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-md border-2 border-transparent hover:border-gold-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               <h3 className="text-xl font-heading font-bold text-maroon-950">{member.name}</h3>
               {member.role && (
                 <p className="text-sm font-bold text-saffron-600 mt-1 uppercase tracking-wider">{member.role}</p>

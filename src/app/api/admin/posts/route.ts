@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { saveUploadedFile } from "@/lib/upload";
 import translate from "translate";
 
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  const { data: post, error } = await supabase
+  const { data: post, error } = await supabaseAdmin
     .from("posts")
     .insert([
       {

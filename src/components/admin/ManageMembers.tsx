@@ -11,7 +11,6 @@ export default function ManageMembers() {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [address, setAddress] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,7 +32,6 @@ export default function ManageMembers() {
         name: m.name,
         role: m.role || "",
         address: m.address || "",
-        imageUrl: m.image_url || "",
         createdAt: m.created_at
       })));
     }
@@ -52,7 +50,7 @@ export default function ManageMembers() {
       const res = await fetch("/api/admin/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, role, address, imageUrl }),
+        body: JSON.stringify({ name, role, address }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -64,13 +62,11 @@ export default function ManageMembers() {
         name: data.name,
         role: data.role || "",
         address: data.address || "",
-        imageUrl: data.image_url || "",
         createdAt: data.created_at
       }]);
       setName("");
       setRole("");
       setAddress("");
-      setImageUrl("");
     } catch (err) {
       setError("An error occurred");
     } finally {
@@ -121,15 +117,6 @@ export default function ManageMembers() {
             </div>
           </div>
             <div>
-              <label className="block text-sm font-bold text-maroon-900 mb-1">Image URL</label>
-              <input
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full rounded-md border border-gold-300 bg-cream-50 px-3 py-2 text-sm text-maroon-950 outline-none focus:border-saffron-500 focus:ring-1 focus:ring-saffron-500"
-                placeholder="https://example.com/photo.jpg"
-              />
-            </div>
-            <div>
               <label className="block text-sm font-bold text-maroon-900 mb-1">Address</label>
               <input
                 value={address}
@@ -161,14 +148,6 @@ export default function ManageMembers() {
             {members.map(member => (
               <div key={member._id} className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-cream-100 overflow-hidden flex items-center justify-center border border-gold-300">
-                    {member.imageUrl ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img src={member.imageUrl} alt="" className="h-full w-full object-cover" />
-                    ) : (
-                      <span className="text-maroon-800 font-bold">{member.name.charAt(0)}</span>
-                    )}
-                  </div>
                   <div>
                     <p className="text-sm font-bold text-maroon-950">{member.name}</p>
                     <p className="text-xs font-medium text-maroon-800">{member.role}</p>

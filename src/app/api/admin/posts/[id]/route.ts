@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { saveUploadedFile } from "@/lib/upload";
 import translate from "translate";
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const { data: post, error: fetchError } = await supabase
+  const { data: post, error: fetchError } = await supabaseAdmin
     .from("posts")
     .select("*")
     .eq("id", id)
@@ -58,7 +58,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     return NextResponse.json({ error: "Post must include text or media." }, { status: 400 });
   }
 
-  const { data: updatedPost, error: updateError } = await supabase
+  const { data: updatedPost, error: updateError } = await supabaseAdmin
     .from("posts")
     .update(updates)
     .eq("id", id)
@@ -75,7 +75,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const { error } = await supabase.from("posts").delete().eq("id", id);
+  const { error } = await supabaseAdmin.from("posts").delete().eq("id", id);
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

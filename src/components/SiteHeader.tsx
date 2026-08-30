@@ -20,7 +20,10 @@ export default function SiteHeader({ org }: { org: OrganizationDTO }) {
     <header className="sticky top-0 z-50 bg-gradient-to-b from-maroon-950 to-maroon-900 border-b-4 border-gold-500 shadow-xl">
       <div className="h-2 bg-gradient-to-r from-saffron-600 via-gold-500 to-saffron-600" />
       <div className="mx-auto flex max-w-3xl flex-col sm:flex-row items-center justify-between gap-4 px-4 py-4 text-center sm:text-left">
-        <Link href="/" className="flex flex-col sm:flex-row items-center gap-3">
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex flex-col sm:flex-row items-center gap-3 text-left focus:outline-none"
+        >
           {org.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -44,7 +47,7 @@ export default function SiteHeader({ org }: { org: OrganizationDTO }) {
               <p className="text-sm font-medium italic leading-tight text-gold-300">{org.tagline}</p>
             )}
           </div>
-        </Link>
+        </button>
 
         <div className="flex items-center gap-3">
           <NotificationBell />

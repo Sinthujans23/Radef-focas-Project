@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { saveUploadedFile } from "@/lib/upload";
 
 const TEXT_FIELDS = {
@@ -37,7 +37,7 @@ export async function PUT(request: NextRequest) {
 
   update.updated_at = new Date().toISOString();
 
-  const { data: org, error } = await supabase
+  const { data: org, error } = await supabaseAdmin
     .from("organizations")
     .update(update)
     .eq("id", 1)
