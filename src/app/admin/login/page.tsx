@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
             🪷
           </div>
           <h1 className="font-heading mt-4 text-2xl font-bold text-maroon-950 text-center">Admin Login</h1>
-          <p className="mt-1 text-sm font-medium text-maroon-900/70 text-center">Radef &amp; Focas Director Board</p>
+          <p className="mt-1 text-sm font-medium text-maroon-900/70 text-center">Redef &amp; Focas Director Board</p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>

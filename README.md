@@ -1,4 +1,4 @@
-# Radef & Focas Director Board
+# Redef & Focas Director Board
 
 Organization news site. A single admin can post text/photo/video updates and manage the
 organization's public details. Anyone visiting the site can view posts, like them, and leave
@@ -41,7 +41,7 @@ Copy `.env.example` to `.env.local` (already done for local dev) and set:
 Any MongoDB instance works. For local development with Docker:
 
 ```bash
-docker run -d --name radef-focas-mongo -p 27017:27017 -v radef_focas_mongo_data:/data/db mongo:7
+docker run -d --name redef-focas-mongo -p 27017:27017 -v redef_focas_mongo_data:/data/db mongo:7
 ```
 
 ### 4. Create the admin account

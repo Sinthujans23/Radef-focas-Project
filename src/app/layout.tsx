@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Radef & Focas Director Board",
-  description: "Official news and updates from the Radef & Focas Director Board.",
+  title: "Redef & Focas Director Board",
+  description: "Official news and updates from the Redef & Focas Director Board.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

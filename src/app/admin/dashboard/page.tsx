@@ -69,7 +69,7 @@ export default async function AdminDashboardPage() {
     instagramUrl: org.instagram_url || "",
     updatedAt: org.updated_at,
   } : {
-    _id: "1", name: "Radef & Focas Director Board", tagline: "", description: "", logoUrl: "", contactEmail: "", contactPhone: "", address: "", facebookUrl: "", twitterUrl: "", instagramUrl: "", updatedAt: new Date().toISOString()
+    _id: "1", name: "Redef & Focas Director Board", tagline: "", description: "", logoUrl: "", contactEmail: "", contactPhone: "", address: "", facebookUrl: "", twitterUrl: "", instagramUrl: "", updatedAt: new Date().toISOString()
   };
 
   return (

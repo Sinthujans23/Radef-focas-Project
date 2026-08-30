@@ -45,7 +45,7 @@ export default function RequestAccessPage() {
             🔒
           </div>
           <h1 className="font-heading text-2xl font-bold text-maroon-950">
-            Radef-Focas Director Board
+            Redef-Focas Director Board
           </h1>
           <p className="mt-2 text-sm font-medium text-maroon-900/70">
             This is a private space. Please request access to view the posts.
