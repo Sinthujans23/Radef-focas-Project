@@ -26,12 +26,15 @@ export default function SiteHeader({ org }: { org: OrganizationDTO }) {
             <img
               src={org.logoUrl}
               alt={org.name}
-              className="h-11 w-11 rounded-full object-cover ring-2 ring-gold-400/80"
+              className="h-11 w-11 rounded-full object-cover ring-2 ring-gold-400/80 bg-white"
             />
           ) : (
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gold-500/15 text-lg text-gold-300 ring-2 ring-gold-400/80">
-              🪷
-            </div>
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/logo.jpg"
+              alt={org.name}
+              className="h-11 w-11 rounded-full object-contain ring-2 ring-gold-400/80 bg-white p-1"
+            />
           )}
           <div>
             <p className="font-heading text-xl sm:text-2xl font-bold leading-tight tracking-wide text-gold-100 drop-shadow-md">

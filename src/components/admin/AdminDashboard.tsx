@@ -8,8 +8,9 @@ import PostComposer from "./PostComposer";
 import ManagePosts from "./ManagePosts";
 import OrgSettingsForm from "./OrgSettingsForm";
 import ManageRequests from "./ManageRequests";
+import ManageMembers from "./ManageMembers";
 
-type Tab = "posts" | "settings" | "requests";
+type Tab = "posts" | "members" | "requests" | "settings";
 
 export default function AdminDashboard({
   initialOrg,
@@ -57,18 +58,18 @@ export default function AdminDashboard({
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-8 relative z-10">
-        <div className="mb-6 flex gap-2">
-          {(["posts", "requests", "settings"] as Tab[]).map((t) => (
+        <div className="mb-6 flex gap-2 overflow-x-auto">
+          {(["posts", "members", "requests", "settings"] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`rounded-lg px-5 py-2.5 text-sm font-bold shadow-sm transition ${
+              className={`whitespace-nowrap rounded-lg px-5 py-2.5 text-sm font-bold shadow-sm transition ${
                 tab === t
                   ? "bg-white border-2 border-gold-300 text-maroon-950"
                   : "bg-cream-100 border-2 border-transparent text-maroon-900/60 hover:bg-white hover:text-maroon-950"
               }`}
             >
-              {t === "posts" ? "Posts" : t === "requests" ? "Access Requests" : "Organization Settings"}
+              {t === "posts" ? "Posts" : t === "members" ? "Members" : t === "requests" ? "Access Requests" : "Organization Settings"}
             </button>
           ))}
         </div>
@@ -109,6 +110,19 @@ export default function AdminDashboard({
                <span className="h-0.5 w-8 bg-gradient-to-l from-transparent to-gold-400" />
             </div>
             <ManageRequests />
+          </div>
+        )}
+
+        {tab === "members" && (
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+               <span className="h-0.5 w-8 bg-gradient-to-r from-transparent to-gold-400" />
+               <h2 className="font-heading text-xl font-bold text-maroon-950">
+                 Manage Board Members
+               </h2>
+               <span className="h-0.5 w-8 bg-gradient-to-l from-transparent to-gold-400" />
+            </div>
+            <ManageMembers />
           </div>
         )}
 

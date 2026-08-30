@@ -6,28 +6,26 @@
 }
 
 body.dark-temple {
-  --background: #1a0505;
-  --foreground: #f4e8c8;
+  --background: #1c1917; /* Stone 900 */
+  --foreground: #f5f5f4; /* Stone 50 */
 }
 
 body.dark-temple .bg-white, 
 body.dark-temple .bg-cream-50, 
 body.dark-temple .bg-cream-100 {
-  background-color: #2e0b0b !important;
-  color: #f4e8c8 !important;
-  border-color: #641a1a !important;
+  background-color: #292524 !important; /* Stone 800 */
+  color: #f5f5f4 !important;
+  border-color: #44403c !important; /* Stone 700 */
 }
 
-body.dark-temple .text-maroon-950,
-body.dark-temple .text-maroon-900,
-body.dark-temple .text-maroon-800 {
+body.dark-temple [class*="text-maroon-"] {
   color: #fce7cc !important;
 }
 
 body.dark-temple .border-gold-300,
 body.dark-temple .border-gold-200,
 body.dark-temple .border-gold-400 {
-  border-color: #7d2323 !important;
+  border-color: #57534e !important; /* Stone 600 */
 }
 
 @theme inline {
@@ -38,11 +36,11 @@ body.dark-temple .border-gold-400 {
   --font-heading: var(--font-playfair);
   --font-tamil: var(--font-tamil);
 
-  --color-maroon-950: #2e0b0b;
-  --color-maroon-900: #4a1212;
-  --color-maroon-800: #641a1a;
-  --color-maroon-700: #7d2323;
-  --color-maroon-600: #952c2c;
+  --color-maroon-950: #3a0d0d;
+  --color-maroon-900: #571616;
+  --color-maroon-800: #741d1d;
+  --color-maroon-700: #8e2828;
+  --color-maroon-600: #a93232;
   --color-maroon-100: #f3ded9;
   --color-maroon-50: #faf0ec;
 
@@ -102,19 +100,3 @@ body {
   background-color: var(--color-maroon-700);
 }
 
-/* Festival Mode Animation */
-@keyframes goldGlow {
-  0% { box-shadow: inset 0 0 50px rgba(217, 112, 15, 0); }
-  50% { box-shadow: inset 0 0 100px rgba(217, 112, 15, 0.2); }
-  100% { box-shadow: inset 0 0 50px rgba(217, 112, 15, 0); }
-}
-
-.festival-mode::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 0%, rgba(217, 112, 15, 0.05), transparent 70%);
-  animation: goldGlow 4s infinite ease-in-out;
-  z-index: 50;
-}

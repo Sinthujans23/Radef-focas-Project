@@ -152,7 +152,7 @@ export default function PostCard({ post, org }: { post: PostDTO; org: Organizati
         <video src={post.mediaUrl} controls className="max-h-[600px] w-full bg-black" />
       )}
       {post.mediaType === "document" && post.mediaUrl && (
-        <div className="border-y border-gold-200 bg-saffron-50 px-4 py-6 text-center transition hover:bg-saffron-100">
+        <div className="border-y border-gold-200 bg-saffron-50 px-4 py-6 text-center transition flex flex-col items-center justify-center gap-3 hover:bg-saffron-100">
           <a
             href={post.mediaUrl}
             target="_blank"
@@ -161,6 +161,15 @@ export default function PostCard({ post, org }: { post: PostDTO; org: Organizati
           >
             <span className="text-3xl">📜</span>
             <span className="underline decoration-dotted underline-offset-4">View Attached Document</span>
+          </a>
+          <a
+            href={post.mediaUrl + "?download=true"}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-maroon-900 px-4 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-maroon-800 transition"
+          >
+            📥 Download
           </a>
         </div>
       )}
@@ -237,6 +246,32 @@ export default function PostCard({ post, org }: { post: PostDTO; org: Organizati
           </svg>
           Comment
         </button>
+
+        {post.mediaUrl && (
+          <a
+            href={post.mediaUrl + "?download=true"}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-bold text-maroon-800 hover:bg-cream-100 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.8}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+              />
+            </svg>
+            Download
+          </a>
+        )}
       </div>
 
       {showComments && (

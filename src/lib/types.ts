@@ -32,3 +32,12 @@ export type OrganizationDTO = {
   instagramUrl: string;
   updatedAt: string;
 };
+
+export type MemberDTO = {
+  _id: string;
+  name: string;
+  role: string;
+  address: string;
+  imageUrl: string;
+  createdAt: string;
+};

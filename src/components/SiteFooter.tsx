@@ -1,5 +1,5 @@
 import TempleDivider from "./TempleDivider";
-import FestivalToggle from "./FestivalToggle";
+
 import DarkModeToggle from "./DarkModeToggle";
 import { OrganizationDTO } from "@/lib/types";
 
@@ -13,9 +13,8 @@ export default function SiteFooter({ org }: { org: OrganizationDTO }) {
           &copy; {new Date().getFullYear()} {org.name}. All rights reserved.
         </p>
         <div className="mt-6 flex flex-col items-center gap-4 text-sm font-medium">
-          <div className="flex gap-4">
+          <div className="flex justify-center">
             <DarkModeToggle />
-            <FestivalToggle />
           </div>
           <a href="/admin/login" className="text-gold-500 hover:text-gold-300 hover:underline transition">
             Admin Login
