@@ -48,7 +48,7 @@ export default function RequestAccessPage() {
             Redef-Focas Director Board
           </h1>
           <p className="mt-2 text-sm font-medium text-maroon-900/70">
-            This is a private space. Please request access to view the posts.
+            Enter your name to request access or login if you are already approved.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export default function RequestAccessPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="mt-2 block w-full rounded-lg border-2 border-gold-300 bg-white px-4 py-2.5 text-maroon-950 font-medium shadow-sm outline-none placeholder:text-maroon-900/40 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-500/20"
-              placeholder="John Doe"
+              placeholder="E.g. Sinthujan"
             />
           </div>
 
@@ -75,7 +75,7 @@ export default function RequestAccessPage() {
             disabled={loading}
             className="w-full rounded-lg bg-gradient-to-r from-saffron-600 to-gold-500 px-4 py-3 text-sm font-bold text-white shadow-md hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-saffron-500/50 focus:ring-offset-2 disabled:opacity-50 transition"
           >
-            {loading ? "Submitting..." : "Request Access"}
+            {loading ? "Please wait..." : "Continue to Board"}
           </button>
         </form>
         

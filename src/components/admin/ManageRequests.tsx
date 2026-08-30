@@ -31,7 +31,7 @@ export default function ManageRequests() {
 
     if (res.ok) {
       const updated = await res.json();
-      setRequests((prev) => prev.map((r) => (r._id === id ? updated : r)));
+      setRequests((prev) => prev.map((r) => (r._id === id ? { ...r, status: updated.status } : r)));
     }
   };
 
