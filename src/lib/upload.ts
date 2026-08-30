@@ -1,8 +1,6 @@
-import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
+import { supabaseAdmin } from "@/lib/supabase";
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 const VIDEO_TYPES = ["video/mp4", "video/webm", "video/ogg", "video/quicktime"];
@@ -30,14 +28,25 @@ export async function saveUploadedFile(file: File): Promise<SavedMedia> {
     throw new Error("Unsupported file type. Allowed: images, videos, and PDFs.");
   }
 
-  await mkdir(UPLOAD_DIR, { recursive: true });
-
-  const ext = path.extname(file.name) || (mediaType === "image" ? ".jpg" : ".mp4");
+  const ext = path.extname(file.name) || (mediaType === "image" ? ".jpg" : mediaType === "video" ? ".mp4" : ".pdf");
   const filename = `${Date.now()}-${crypto.randomBytes(8).toString("hex")}${ext}`;
-  const filePath = path.join(UPLOAD_DIR, filename);
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(filePath, buffer);
 
-  return { url: `/uploads/${filename}`, mediaType };
+  const { error } = await supabaseAdmin.storage
+    .from("uploads")
+    .upload(filename, buffer, {
+      contentType: file.type,
+      upsert: false,
+    });
+
+  if (error) {
+    throw new Error(`Supabase storage error: ${error.message}`);
+  }
+
+  const { data: { publicUrl } } = supabaseAdmin.storage
+    .from("uploads")
+    .getPublicUrl(filename);
+
+  return { url: publicUrl, mediaType };
 }
