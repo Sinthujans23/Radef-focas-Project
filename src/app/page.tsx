@@ -8,6 +8,10 @@ import { OrganizationDTO, PostDTO, CommentDTO } from "@/lib/types";
 import { verifyAdminToken, ADMIN_COOKIE_NAME } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
+import AutoRefresh from "@/components/AutoRefresh";
+
+import { redirect } from "next/navigation";
+
 export const dynamic = "force-dynamic";
 
 async function getData() {
@@ -84,23 +88,37 @@ export default async function Home() {
 
   if (!adminPayload) {
     const token = cookieStore.get("viewer_token")?.value;
-    if (token) {
-      const { data: req } = await supabase
-        .from("access_requests")
-        .select("*")
-        .eq("viewer_token", token)
-        .single();
+    
+    if (!token) {
+      redirect("/request-access");
+    }
 
-      if (!req || req.status === "pending") {
+    const { data: req } = await supabase
+      .from("access_requests")
+      .select("*")
+      .eq("viewer_token", token)
+      .single();
+
+    if (!req) {
+      // Token exists in browser but not in DB (e.g., DB was cleared)
+      redirect("/request-access");
+    }
+
+    if (req.status === "pending") {
       return (
-        <div className="flex min-h-screen items-center justify-center p-4 text-center">
-          <div className="w-full max-w-md rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 shadow-2xl text-white">
-            <h1 className="font-playfair text-2xl font-bold text-white">Request Pending</h1>
-            <p className="mt-4 text-white/70">
+        <div className="flex min-h-screen items-center justify-center p-4 text-center relative overflow-hidden bg-[#fdfaf6] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]">
+          <AutoRefresh interval={3000} />
+          <div className="w-full max-w-md rounded-2xl border-4 border-gold-400 bg-white p-8 shadow-2xl relative overflow-hidden text-maroon-950">
+            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-saffron-600 via-gold-500 to-saffron-600" />
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cream-50 text-3xl shadow-inner border border-gold-300 ring-4 ring-gold-100 mb-6">
+              ⏳
+            </div>
+            <h1 className="font-heading text-2xl font-bold text-maroon-950">Request Pending</h1>
+            <p className="mt-4 text-maroon-900/70 font-medium">
               Your request for access is currently pending approval by the admin. Please check back later.
             </p>
-            <div className="mt-6 text-center">
-              <a href="/admin/login" className="text-xs text-white/50 hover:text-white hover:underline">
+            <div className="mt-8 text-center pt-6 border-t border-gold-200">
+              <a href="/admin/login" className="text-sm font-bold text-maroon-800 hover:text-saffron-700 transition">
                 Admin Login
               </a>
             </div>
@@ -109,14 +127,18 @@ export default async function Home() {
       );
     } else if (req.status === "rejected") {
       return (
-        <div className="flex min-h-screen items-center justify-center p-4 text-center">
-          <div className="w-full max-w-md rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 shadow-2xl text-white">
-            <h1 className="font-playfair text-2xl font-bold text-rose-400">Access Denied</h1>
-            <p className="mt-4 text-white/70">
+        <div className="flex min-h-screen items-center justify-center p-4 text-center relative overflow-hidden bg-[#fdfaf6] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]">
+          <div className="w-full max-w-md rounded-2xl border-4 border-gold-400 bg-white p-8 shadow-2xl relative overflow-hidden text-maroon-950">
+            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600" />
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-rose-50 text-3xl shadow-inner border border-rose-300 ring-4 ring-rose-100 mb-6">
+              ❌
+            </div>
+            <h1 className="font-heading text-2xl font-bold text-rose-600">Access Denied</h1>
+            <p className="mt-4 text-maroon-900/70 font-medium">
               Your request for access has been declined.
             </p>
-            <div className="mt-6 text-center">
-              <a href="/admin/login" className="text-xs text-white/50 hover:text-white hover:underline">
+            <div className="mt-8 text-center pt-6 border-t border-gold-200">
+              <a href="/admin/login" className="text-sm font-bold text-maroon-800 hover:text-saffron-700 transition">
                 Admin Login
               </a>
             </div>
@@ -124,7 +146,6 @@ export default async function Home() {
         </div>
       );
     }
-  }
   }
 
   const { org, posts } = await getData();
